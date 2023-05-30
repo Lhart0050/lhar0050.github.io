@@ -1,0 +1,715 @@
+/*
+
+Template 2080 Minimax
+
+http://www.tooplate.com/view/2080-minimax
+
+*/
+
+body
+	{
+		background: #fff;
+		font-family: 'lane_-_narrowregular', sans-serif;
+    line-height: 30px;
+	}
+
+@font-face {
+    font-family: 'lane_-_narrowregular';
+    src: url('../fonts/LANENAR_-webfont.eot');
+    src: url('../fonts/LANENAR_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/LANENAR_-webfont.woff') format('woff'),
+         url('../fonts/LANENAR_-webfont.ttf') format('truetype'),
+         url('../fonts/LANENAR_-webfont.svg#lane_-_narrowregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+h1, p {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+h2,h3 {
+  font-weight: bold;
+}
+
+hr {
+  border-color: #f2af00;
+  margin: 0;
+  opacity: 0.3;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  transition: all 0.3s ease-in;
+}
+img:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+/* navigation */
+.navbar-default {
+  background: #fff;
+  border: none;
+  box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
+  margin: 0 !important;
+  border-bottom-left-radius: 10px;  /* Round bottom left corner */
+  border-bottom-right-radius: 10px; /* Round bottom right corner */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);  /* Box shadow */
+}
+
+.navbar-default .navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  position: fixed;
+  height: 120px;  /* reduced the height a bit */
+  width:180px;
+  top:-2%;
+  margin: 0;
+  padding: 10px 20px 30px 20px;  /* reduced the padding a bit */
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+}
+
+.navbar-default .navbar-brand img {
+  margin-top: 0;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+.navbar-brand:hover, .navbar-brand:clicked {
+background: dc5034;
+}
+
+.navbar-default .navbar-nav li a {
+  border-right: 1px solid #f9f9f9;
+  color: #202020;
+   font-weight: bold;
+  padding-right: 40px;
+  padding-left: 40px;
+  line-height: 40px;
+
+transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+}
+.navbar-default .navbar-nav > li > a:clicked,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+color: #f2af00;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+color: #f2af00;
+background-color: transparent;
+}
+.navbar-default .navbar-toggle {
+  border: none;
+  padding-top: 30px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background: #dc5034;
+  border-color: transparent;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus { 
+background-color: transparent 
+}
+
+
+/* home section */
+#home {
+  position: relative;
+  background: url('../images/Untitled\ design.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 600px;
+  padding-top: 220px;
+  padding-bottom: 100px;
+  min-height: 88vh; 
+}
+  
+#home::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,0.9352533249627977) 0%, rgba(0,0,0,0.6523401596966911) 59%, rgba(0,0,0,0.35822251263786764) 100%);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+#home h1 {
+  color: #f2af00;
+  font-weight: 300;
+  padding-bottom: 10px;
+}
+
+#home h2 {
+  line-height: 10px;
+  color: #fff;
+}
+
+#home p {
+  color: #fff;
+}
+
+
+#home .btn {
+  background: #AA0202;
+  border-color: transparent;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  padding-top: 14px;
+  width: 200px;
+  padding: 20px;
+  margin-top: 20px;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+}
+
+#home .btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid #AA0202;
+  color: #AA0202;
+}
+
+
+
+/* service section */
+#service {
+	padding: 10px 0px;
+	background-color: #fff;
+}
+
+#service .fact-item {
+	background-color: #f4f4f4;
+	padding: 30px;
+	text-align: center;
+}
+
+.fact-item .counter {
+	font-size: 24px;
+	font-weight: 700;
+	color: #AA0202;
+}
+
+.fact-item span {
+	display: inline-block;
+	margin-top: 10px;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #000000;
+}
+
+
+
+/* about section */
+#about {
+  background: rgb(108,15,15);
+  background: linear-gradient(278deg, rgba(108,15,15,0.9856734930300245) 0%, rgba(170,2,2,1) 39%, rgba(170,2,2,1) 100%);
+  padding-top: 100px; /* Removed padding */
+  padding-bottom: 65px; /* Removed padding */
+  border-bottom-left-radius: 10px ;
+  border-bottom-right-radius: 10px ;
+}
+
+#about h2 {
+  border-right: 2px solid #f2af00;
+  display: inline-block;
+  padding: 10px 20px 10px 10px;
+}
+
+#about .col-md-12 {
+  text-align: center;
+  padding-bottom: 0px; /* Removed padding */
+}
+
+#about img {
+  width: 100%; /* Changed to full width */
+  height: 100%; /* Changed to full height */
+  object-fit: cover;
+}
+
+#about h4 {
+  padding-bottom: 10px;
+}
+
+/* team section */
+.section-padding {
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 1140px;
+  margin: auto;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.panel {
+  border: 1px solid #ccc; /* Adds border to the card */
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  margin-top: 30px; /* Pushes the card below the text block */
+}
+
+.panel-default {
+  border-color: #ddd;
+  border-radius: 20px;
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+.job-thumb {
+  margin-bottom: 30px;
+}
+
+.job-thumb-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.job-image {
+  margin-bottom: 15px;
+  display: block;
+  border-top-left-radius: 10px; /* match the border radius of the panel */
+  border-bottom-left-radius: 10px; /* match the border radius of the panel */
+  border-top-right-radius: 10px; /* match the border radius of the panel */
+  border-bottom-right-radius: 10px; /* match the border radius of the panel */
+  object-fit: cover; /* make sure the image cover the whole width */
+}
+
+.job-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.job-location, .job-date, .job-price {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #AA0202;
+  border-color: #AA0202;
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 200px; /* Set a fixed width */
+  display: inline-block;
+  text-align: center; /* To keep the text centered */
+}
+
+.btn-primary:hover {
+  color: #AA0202;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: #AA0202;
+}
+
+
+
+.scrolling-wrapper {
+  overflow-x: auto; /* This will add horizontal scroll bar */
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.card {
+  display: inline-block;
+  width: calc(100% / 3);
+  white-space: normal;
+  margin: -2px;
+  padding: 10px;
+  transition: box-shadow 0.3s ease-in-out;
+  background-color: #ffffff;
+  border-radius: 0px; /* Added to give card rounded corners */
+}
+
+.card:active {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* information */
+#information .col-md-6 {
+  text-align: center;
+  padding-bottom: 0px; /* Removed padding */
+  display: flex; /* Add this */
+  align-items: center; /* And this */
+  justify-content: center; /* If you also want to horizontally center the content */
+  flex-direction: column; /* To maintain the top-to-bottom flow of content */
+}
+
+#information .col-md-6 img {
+  margin-right: 50px;
+  margin-top: 5px;
+  align-items: left;
+  height: 390px; /* Or any other height that suits your design */
+  object-fit: cover; /* This will make sure your image covers the full width of the container without distortion */
+  position: relative;
+  box-shadow: 0px 0px 3px 3px rgba(10, 10, 10, 0.5);
+}
+
+#information {
+  background: url('../images/about-img.jpg') no-repeat center center;
+  color: #ccc;
+  background-size: cover;
+  position: relative;
+  min-height: 400px; /* Or any other height that suits your design */
+}
+
+#information:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(274deg, rgba(0,0,0,0.9352533249627977) 0%, rgba(0,0,0,0.7391748935902486) 85%, rgba(0,0,0,0.5599031849067753) 100%);  /* Semi-transparent black overlay */
+  z-index: 1;
+}
+
+#information .container {
+  position: relative;
+  z-index: 2;
+}
+
+#information .text-content {
+  margin-top: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%; /* Ensures the text-content fills the entire column */
+}
+
+
+
+/* portfolio section */
+
+#portfolio {
+  background-color: #AA0202;
+  background-image: ;
+  padding: 40px 0px;
+  text-align: center;
+}
+
+#portfolio .title h2 {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 40px; /* Add bottom margin to the title */
+}
+
+#portfolio .filter-wrapper {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 50px;
+}
+
+#portfolio .filter-wrapper li {
+  display: inline;
+  margin-right: 15px;
+}
+
+#portfolio .filter-wrapper li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#portfolio .filter-wrapper li a.selected {
+  font-weight: bold;
+}
+
+#portfolio .country-section {
+  background-color: #ffffff;
+  padding: 40px 20px;
+}
+
+/* Blog style */
+#portfolio .section-heading {
+  margin-bottom: 60px;
+}
+
+#portfolio .section-heading h4 {
+  color: #333;
+  font-weight: 800;  /* Make h4 bolder */
+  font-size: 32px;  /* Make h4 larger */
+}
+
+#portfolio .section-heading .line-dec {
+  background-color: #AA0202;
+}
+
+#portfolio .filter-wrapper li a {
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid #ffffff; /* Add border to the button */
+  padding: 10px 15px; /* Add some padding to the button */
+  border-radius: 5px; /* Rounded corners */
+  transition: background 0.3s ease; /* Smooth transition */
+}
+
+#portfolio .filter-wrapper li a:hover {
+  background-color: #ffffff; /* Background color on hover */
+  color: #AA0202; /* Text color on hover */
+}
+
+#portfolio .filter-wrapper li a.selected {
+  font-weight: bold;
+  background-color: #ffffff; /* Background color when selected */
+  color: #AA0202; /* Text color when selected */
+}
+
+#portofolio img {
+  border-radius: 20px;
+}
+
+.blog-item img {
+  width: 100%;
+  overflow: hidden;
+  display: block;  /* Add this to make the image in the middle */
+  margin: auto;    /* Add this to make the image in the middle */
+  border-radius: 10px; /* Add border radius to the image */
+}
+
+.blog-item img {
+  width: 100%;
+  overflow: hidden;
+  display: block;  /* Add this to make the image in the middle */
+  margin: auto;    /* Add this to make the image in the middle */
+}
+
+.blog-item .thumb {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 70px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.thumb {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 70px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px; /* Add border radius to thumb container */
+}
+
+
+
+.blog-item .text-content {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  padding: 20px 30px;  /* Increase padding to make text space inside the picture bigger */
+}
+
+.blog-item .text-content h4 {
+  font-size: 20px;  /* Increase font size */
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.blog-item .text-content span {
+  font-size: 14px;  /* Increase font size */
+  color: #fff;
+}
+
+.blog-item .text-content em {
+  font-style: normal;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.shop-now-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  background: none;
+  border: 2px solid #ffffff00; /* Add a border */
+  color: transparent;
+  padding: 15px 30px; /* Add padding to make the button bigger */
+  font-size: 18px; /* Increase font size */
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 1px; /* Add some letter spacing */
+  transition: all 0.3s ease-in-out; /* Transition for all properties */
+  cursor: pointer; /* Change cursor to pointer to indicate clickable */
+}
+
+/* Change style on hover of the thumb div */
+.thumb:hover .shop-now-btn {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7); /* Add a semi-transparent background on hover */
+  border-color: #AA0202; /* Change border color on hover */
+  border-radius: 10px;
+}
+
+
+
+
+/* footer section */
+footer {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: #AA0202
+}
+footer h2 {
+  color: #FFF;
+  border-bottom: 2px solid #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+}
+footer p {
+  color:#FFF;
+  line-height: 20px;
+}
+footer span {
+  font-weight: bold;
+  padding-left: 20px;
+}
+.social-icons {
+  padding: 0;
+  margin: 0;
+}
+.social-icons li {
+  display: inline-block;
+  list-style: none;
+}
+.social-icons li a {
+  background: #AA0202;
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px;
+  transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+}
+.social-icons li a:hover {
+  background: #fff;
+  color: #AA0202;
+}
+
+/* copyright section */
+.copyright {
+  color: #fff;
+  background-color: #000000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+/* scrolltop section */
+.go-top 
+  {
+    background-color: #f2af00;
+    font-size: 26px;
+    bottom: 2em;
+    right: 2em;
+    color: #FFF;
+    display: none;
+    position: fixed;
+    text-decoration: none;
+    width: 60px;
+    height: 60px;
+    line-height: 58px;
+    text-align: center;
+	transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+  }
+.go-top:hover
+  {
+    background-color: #444;
+	color: #fff;
+  }
+
+/* media 960 */
+@media only screen and ( max-width: 980px ) {
+  .navbar-default .navbar-nav li a {
+    padding-right: 20px;
+    padding-left: 40px;
+    line-height: 30px;
+  }
+}
+
+/* media 360 */
+@media only screen and ( max-width: 360px ) {
+  #team h4 {
+    padding-bottom: 30px;
+  }
+}
+
+/* Width */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px; /* Adds rounded corners to the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #88888850;
+  border-radius: 10px; /* Adds rounded corners to the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cdcdcd5b;
+}
+
